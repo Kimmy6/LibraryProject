@@ -11,6 +11,25 @@ def home():
 
 @bp.route('/login', methods = ["POST", "GET"]) # 로그인 페이지
 def login():
+    if request.method == "GET":
+        return render_template('login.html')
+
+    user_ID = request.form['userID']
+    user_PW = request.form['userPW']
+
+    user_info = myMember.query.filter(myMember.userID == user_ID).first()
+    if not user_info:
+        
+        return redirect("/login")
+    
+    if not check_password_hash(user_info.userPW, user_PW):
+
+        return redirect("/login")
+    
+    session.clear() # 혹시 모르니 세션을 미리 비워 둠
+    session['userID'] = user_ID
+    session['username'] = user_info.username
+    
     return redirect("/")
 
 @bp.route('/logout') # 로그아웃
