@@ -1,0 +1,18 @@
+{% extends "basic.html" %}
+{% block title %} 엘리스 도서 대출 시스템 {% endblock %}
+{% block page_content %}
+    <p>엘리스 도서관 도서 목록</p>
+
+    {% if book_list %}
+    <div class = "bookContainer">
+        {%for book in book_list %}
+        <ul>
+          <li>{{ book.book_name }}</li>
+        </ul>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>비정상적인 접근입니다.</p>
+
+    {% endif %}
+{% endblock %}
