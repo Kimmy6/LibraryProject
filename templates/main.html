@@ -1,14 +1,16 @@
 {% extends "basic.html" %}
-{% block title %} 엘리스 도서 대출 시스템 {% endblock %}
+{% block title %} 엘리스 도서관 대여 시스템 {% endblock %}
 {% block page_content %}
     <p>엘리스 도서관 도서 목록</p>
-
     {% if book_list %}
     <div class = "bookContainer">
         {%for book in book_list %}
         <ul>
-          <li>{{ book.book_name }}</li>
+          <li><a href = "/book_intro/{{book.id}}">{{ book.book_name }}</a></li>
+          <li>평점</li>
+          <li>{{ book.left }}권 남음</li>
         </ul>
+        <button type = "submit" id = "RentButton" name = "{{book.id}}" onclick = "location.href = '{{book.id}}'">대여하기</button>
         {% endfor %}
     </div>
     {% else %}

@@ -1,5 +1,10 @@
 <nav>
     <ul>
+        {% if homecoming %}
+        <li><a href = "{{ url_for('main.history')}}">대여기록</a></li>
+        <li><a href = "{{ url_for('main.bannap')}}">반납하기</a></li>
+        <li><a href = "{{ url_for('main.home')}}">홈으로</a></li>
+        {% else %}
         {% if session['userID'] %}
         <li><a href = "{{ url_for('main.history')}}">대여기록</a></li>
         <li><a href = "{{ url_for('main.bannap')}}">반납하기</a></li>
@@ -9,5 +14,7 @@
         <li><a href = "{{ url_for('main.bannap')}}">반납하기</a></li>
         <li><a href = "{{ url_for('main.login')}}">로그인</a></li>
         {% endif %}
+        {% endif %}
+
     </ul>
 </nav>

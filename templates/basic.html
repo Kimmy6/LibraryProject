@@ -7,8 +7,17 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    {% include "_navbar.html" %} {% block content %}
-    {% block page_content %} {% endblock %}
+    {% include "_navbar.html" %}
+    {% block content %}
+    
+    {% for msg in get_flashed_messages() %}
+    <div class="flash messages">
+        {{ msg }}
+    </div>
+    {% endfor %}
+    
+    {% block page_content %}
+    {% endblock %}
     {% endblock %}
 </body>
 </html>

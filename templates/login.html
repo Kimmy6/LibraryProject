@@ -1,11 +1,13 @@
 {% extends "basic.html" %}
 {% block title %} 로그인하기 {% endblock %}
 {% block page_content %}
-<p>엘리스 도서 대출 시스템 로그인</p>
-<form action = "{{ url_for('main.login') }}" method = "post">
-    <label>ID</label><input type = "email" id = "userID" name = "userID" >
-    <label>PW</label><input type = "password" name = "userPW" >
-    <input type = "submit" class = "LoginButton" value = "LOGIN" >
-</form>
-<a href = "{{ url_for('main.home') }}">홈으로</a>
+    <p>엘리스 도서 대출 시스템 로그인</p>
+    <form class = "IForm"action = "{{ url_for('main.login') }}" method = "post">
+        ID : <br>
+        <input type = "email" id = "userID" name = "userID" ><br>
+        Password : <br>
+        <input type = "password" name = "userPW" ><br>
+        <button type = "submit" class = "LoginButton">LOGIN</button>
+    </form>
+    <a href = "{{ url_for('main.submit' )}}">회원가입</a>
 {% endblock %}

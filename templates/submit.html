@@ -1,0 +1,16 @@
+{% extends "basic.html" %}
+{% block title %} 회원가입하기 {% endblock %}
+{% block page_content %}
+    <p>엘리스 도서관 멤버십 가입하기</p>
+    <form class = "IForm" action = "{{ url_for('main.submit') }}" method = "post">
+        ID : <br>
+        <input type = "email" id = "SuserID" name = "SuserID" ><br>
+        Password : <br>
+        <input type = "password" id = "SuserPW" name = "SuserPW" ><br>
+        Repeat Password : <br>
+        <input type = "password" id = "SuserPW_C" name = "SuserPW_R" ><br>
+        Name : <br>
+        <input type = "text" name = "Susername" ><br>
+        <button type = "submit" class = "SubmitButton">SUBMIT</button>
+    </form>
+{% endblock %}
