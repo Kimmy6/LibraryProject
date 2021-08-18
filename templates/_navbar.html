@@ -8,11 +8,12 @@
         {% else %}
         {% if session['userID'] %}
         <li><a href = "{{ url_for('main.logout')}}">로그아웃</a></li>
-        <p>현재 로그인 중: {{session['username']}}</p>
         {% else %}
         <li><a href = "{{ url_for('main.login')}}">로그인</a></li>
         {% endif %}
         {% endif %}
-
     </ul>
+    {% if session['userID'] %}
+    <p class = "currentSession">현재 로그인 중: {{session['username']}}</p>
+    {% endif %}
 </nav>

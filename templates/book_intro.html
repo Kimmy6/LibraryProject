@@ -4,6 +4,13 @@
 {% if book_info %}
 <div class = "bookInfo">
     <ul>
+      <li>
+        <img
+        class = "coverImage"
+        src = "{{url_for('static', filename = 'book_img')}}/{{book_info.id}}.jpg" 
+        alt = "{{book_info.book_name}}"
+        >
+      </li>
       <li>책이름 {{book_info.book_name}}</li>
       <li>출판사 {{book_info.publisher}}</li>
       <li>저자 {{book_info.author}}</li>
@@ -23,12 +30,12 @@
     <ul>
         <li>작성자 {{comment.username}}</li>
         <li>내용 {{comment.comments}}</li>
+        <li><button type = "submit" 
+        id = "deletingComments_{{comment.id}}" 
+        name = "deletingComments_{{comment.id}}" 
+        onclick = "location.href = '/deleting/{{book_info.id}}/{{comment.id}}'">댓글 삭제</button></li>
     </ul>
-    <button type = "submit" 
-    id = "deletingComments_{{comment.id}}" 
-    name = "deletingComments_{{comment.id}}" 
-    onclick = "location.href = '/deleting/{{book_info.id}}/{{comment.id}}'">댓글 삭제</button>
-    {% endfor %}
+    {% endfor %} <br>
     <label>댓글 작성</label> <br>
     <form method = "post">
     <input type = "text" id = "writingComments" name = "writingComments">

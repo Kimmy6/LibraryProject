@@ -46,7 +46,6 @@ class rentHistory(db.Model): # 책 빌린 기록 저장
     book_id     = db.Column(db.Integer, db.ForeignKey('myBooks.id')) # myBooks 테이블의 id 필드를 외래키로 사용
     book_name   = db.Column(db.String(255), db.ForeignKey('myBooks.book_name')) # myBooks 테이블의 id 필드를 외래키로 사용
     Ldate       = db.Column(db.Date)
-    Rdate       = db.Column(db.Date)
 
 class nowRenting(db.Model): # 재고에 없는 책 목록들 저장
     __tablename__ = 'nowRenting'

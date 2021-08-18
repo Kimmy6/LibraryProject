@@ -5,7 +5,7 @@
     {% if book_list %}
     <div class = "bookContainer">
         {%for book in book_list %}
-        <ul>
+        <ul class = "oneBook">
           <li><a href = "/book_intro/{{book.id}}">
             <img
              class = "coverImage"

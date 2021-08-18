@@ -133,7 +133,7 @@ def bannap_button(book_id):
 
     # 대여 기록 남기기
     rent = rentHistory.query.filter(rentHistory.book_id == book_id).first()
-    rent.Rdate = datetime.today()
+    db.session.add(rent)
     db.session.commit()
 
     # 책을 다시 도서관에 반납
