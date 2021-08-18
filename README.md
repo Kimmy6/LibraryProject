@@ -18,6 +18,8 @@
   + JavaScript
   + ...
 
+* Postman
+
 ## 구현해야 할 기능
 
 * 로그인

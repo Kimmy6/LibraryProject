@@ -112,8 +112,34 @@ def bannap():
     if not session:
         flash("로그인 후 이용해 주세요.")
         return redirect('/')
-        
-    return render_template('bannap.html', homecoming = True)
+    
+    user_info = myMember.query.filter(myMember.userID == session['userID']).first()
+    user_book = nowRenting.query.filter(nowRenting.userID == session['userID']).all()
+    history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
+    
+    return render_template('bannap.html', user_book = user_book , user_info = user_info, history = history, homecoming = True)
+
+@bp.route('/bannap/<int:book_id>') # 버튼의 목표 url을 r/book_id로 지정 (반납하기)
+def bannap_button(book_id):
+
+    now_info = nowRenting.query.filter(nowRenting.book_id == book_id).first()
+    book_info = myBooks.query.filter(myBooks.id == book_id).first()
+
+    # 재고 수 + 1
+    _left = book_info.left
+    book_info.left = _left + 1
+    db.session.commit()
+
+    # 대여 기록 남기기
+    rent = rentHistory.query.filter(rentHistory.book_id == book_id).first()
+    rent.Rdate = datetime.today()
+    db.session.commit()
+
+    # 책을 다시 도서관에 반납
+    db.session.delete(now_info)
+    db.session.commit()
+
+    return redirect(url_for('main.bannap'))
 
 @bp.route('/book_intro/<int:book_id>') # 책 소개 페이지 (리뷰 포함)
 def intro():
