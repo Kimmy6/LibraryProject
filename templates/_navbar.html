@@ -1,4 +1,5 @@
 <nav>
+    <p><a href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
     <ul>
         <li><a href = "{{ url_for('main.history')}}">대여기록</a></li>
         <li><a href = "{{ url_for('main.bannap')}}">반납하기</a></li>
@@ -7,6 +8,7 @@
         {% else %}
         {% if session['userID'] %}
         <li><a href = "{{ url_for('main.logout')}}">로그아웃</a></li>
+        <p>현재 로그인 중: {{session['username']}}</p>
         {% else %}
         <li><a href = "{{ url_for('main.login')}}">로그인</a></li>
         {% endif %}

@@ -6,11 +6,21 @@
     <div class = "bookContainer">
         {%for book in book_list %}
         <ul>
+          <li><a href = "/book_intro/{{book.id}}">
+            <img
+             class = "coverImage"
+             src = "{{url_for('static', filename = 'book_img')}}/{{book.id}}.jpg" 
+             alt = "{{book.book_name}}"
+             ></a></li>
           <li><a href = "/book_intro/{{book.id}}">{{ book.book_name }}</a></li>
           <li>평점</li>
           <li>{{ book.left }}권 남음</li>
         </ul>
-        <button type = "submit" id = "RentButton" name = "{{book.id}}" onclick = "location.href = '{{book.id}}'">대여하기</button>
+        <button 
+        type = "submit" 
+        id = "RentButton" 
+        name = "{{book.id}}" 
+        onclick = "location.href = '{{book.id}}'">대여하기</button>
         {% endfor %}
     </div>
     {% else %}

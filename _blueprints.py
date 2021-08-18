@@ -14,6 +14,7 @@ def rent_button(book_id):
     if not session:
         flash("로그인 후 대여할 수 있습니다.")
         return redirect('/')
+    
 
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
     now_info = nowRenting.query.filter(nowRenting.userID == session['userID'] and nowRenting.book_id == book_id).all()
@@ -119,7 +120,7 @@ def bannap():
     
     return render_template('bannap.html', user_book = user_book , user_info = user_info, history = history, homecoming = True)
 
-@bp.route('/bannap/<int:book_id>') # 버튼의 목표 url을 r/book_id로 지정 (반납하기)
+@bp.route('/bannap/<int:book_id>') # 버튼의 목표 url을 bannap/book_id로 지정 (반납하기)
 def bannap_button(book_id):
 
     now_info = nowRenting.query.filter(nowRenting.book_id == book_id).first()
@@ -139,17 +140,33 @@ def bannap_button(book_id):
     db.session.delete(now_info)
     db.session.commit()
 
+    flash(f"요청하신 {now_info.book_name}의 반납이 완료되었습니다.")
     return redirect(url_for('main.bannap'))
 
-@bp.route('/book_intro/<int:book_id>') # 책 소개 페이지 (리뷰 포함)
-def intro():
-    return render_template('book_intro.html') # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
+@bp.route('/book_intro/<int:book_id>', methods = ["POST", "GET"]) # 책 소개 및 리뷰 작성 페이지
+def intro(book_id):
+    if request.method == "GET":
+        book_info = myBooks.query.filter(myBooks.id == book_id).first()
+        user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
+        return render_template('book_intro.html', book_info = book_info, user_comments = user_comments, homecoming = True) # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
 
-@bp.route('/writing/<int:book_id>', methods = ["POST"]) # 리뷰 작성 (책 id를 받아와서 그에 따라 url을 이동)
-def writing():
+    comments = request.form['writingComments']
+
+    written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, comments = comments)
+    db.session.add(written_comments)
+    db.session.commit()
+
     return redirect(f'/book_intro/{book_id}')
 
-@bp.route('/deleting/<int:book_id>') # 리뷰 삭제 (작성과 마찬가지)
-def deleting():    
-    return redirect(f'/book_intro/{book_id}')
 
+@bp.route('/deleting/<int:book_id>/<int:comment_id>') # 리뷰 삭제 (작성과 마찬가지)
+def deleting(book_id, comment_id):
+    user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()
+    book_info = myBooks.query.filter(myBooks.id == book_id).first()
+
+    if user_comments.userID != session['userID']:
+        flash("내 댓글만 삭제할 수 있습니다.")
+    else:
+        db.session.delete(user_comments)
+        db.session.commit()
+    return redirect(f'/book_intro/{book_id}')

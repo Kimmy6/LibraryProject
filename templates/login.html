@@ -2,7 +2,7 @@
 {% block title %} 로그인하기 {% endblock %}
 {% block page_content %}
     <p>엘리스 도서 대출 시스템 로그인</p>
-    <form class = "IForm"action = "{{ url_for('main.login') }}" method = "post">
+    <form class = "IForm" action = "{{ url_for('main.login') }}" method = "post">
         ID : <br>
         <input type = "email" id = "userID" name = "userID" ><br>
         Password : <br>

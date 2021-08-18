@@ -6,3 +6,10 @@ a {
 li {
     list-style: none;
 }
+
+li .coverImage{
+    height: 300px;
+    width: 150px;
+    object-fit: contain;
+    border: solid;
+}
