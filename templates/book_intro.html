@@ -39,6 +39,7 @@
     <label>댓글 작성</label> <br>
     <form method = "post">
     <input type = "text" id = "writingComments" name = "writingComments">
+    <label>평점</label><input type = "range" id = "bookRank" name = "bookRank" value = 0 min = 0 max = 5 step = 1>
     <button type = "submit" 
     id = "writingComments_{{book_info.id}}" 
     name = "writingComments_{{book_info.id}}">작성하기</button>

@@ -152,6 +152,8 @@ def intro(book_id):
 
     comments = request.form['writingComments']
 
+    user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
+    
     written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, comments = comments)
     db.session.add(written_comments)
     db.session.commit()
@@ -161,12 +163,17 @@ def intro(book_id):
 
 @bp.route('/deleting/<int:book_id>/<int:comment_id>') # 리뷰 삭제 (작성과 마찬가지)
 def deleting(book_id, comment_id):
-    user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()
-    book_info = myBooks.query.filter(myBooks.id == book_id).first()
+    if session:
+        user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()
+        book_info = myBooks.query.filter(myBooks.id == book_id).first()
 
-    if user_comments.userID != session['userID']:
-        flash("내 댓글만 삭제할 수 있습니다.")
+        if user_comments.userID != session['userID']:
+            flash("내 댓글만 삭제할 수 있습니다.")
+        else:
+            db.session.delete(user_comments)
+            db.session.commit()
     else:
-        db.session.delete(user_comments)
-        db.session.commit()
+        flash("로그인 후 댓글을 삭제할 수 있습니다.")
+
     return redirect(f'/book_intro/{book_id}')
+    
