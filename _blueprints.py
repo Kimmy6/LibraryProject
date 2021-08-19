@@ -183,7 +183,6 @@ def deleting(book_id, comment_id):
     if session:
         user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()
         book_info = myBooks.query.filter(myBooks.id == book_id).first()
-        rank = user_comments.rank
         _user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
         if user_comments.userID != session['userID']:
             flash("내 댓글만 삭제할 수 있습니다.")
@@ -194,18 +193,17 @@ def deleting(book_id, comment_id):
 
         # 평점을 갱신하는 코드(삭제)
         if _user_comments:
+            rank = int(user_comments.rank)
             hap = 0
             for i in range(0, len(_user_comments)):
                 hap += int(_user_comments[i].rank)
-
-            new_avg_rank = (hap - rank) / (len(_user_comments) - 1)
-            book_info.avg_rank = new_avg_rank
-            db.session.commit()
-
-        else:
-            book_info.avg_rank = rank
-            db.session.commit()
-        
+            if len(_user_comments) > 1:
+                new_avg_rank = (hap - rank) / (len(_user_comments) - 1)
+                book_info.avg_rank = new_avg_rank
+                db.session.commit()
+            else:
+                book_info.avg_rank = 0
+                db.session.commit()
     else:
         flash("로그인 후 댓글을 삭제할 수 있습니다.")
 
