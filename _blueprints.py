@@ -151,13 +151,30 @@ def intro(book_id):
         return render_template('book_intro.html', book_info = book_info, user_comments = user_comments, homecoming = True) # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
 
     comments = request.form['writingComments']
+    rank = int(request.form['bookRank'])
 
+    book_info = myBooks.query.filter(myBooks.id == book_id).first()
     user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
     
-    written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, comments = comments)
+    # 댓글과 점수 추가
+    written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, rank = rank, comments = comments)
     db.session.add(written_comments)
     db.session.commit()
 
+    # 평점을 갱신하는 코드(추가)
+    if user_comments:
+        hap = 0
+        for i in range(0, len(user_comments)):
+            hap += int(user_comments[i].rank)
+
+        new_avg_rank = (rank + hap) / (len(user_comments) + 1)
+        book_info.avg_rank = new_avg_rank
+        db.session.commit()
+
+    else:
+        book_info.avg_rank = rank
+        db.session.commit()
+        
     return redirect(f'/book_intro/{book_id}')
 
 
@@ -166,12 +183,29 @@ def deleting(book_id, comment_id):
     if session:
         user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()
         book_info = myBooks.query.filter(myBooks.id == book_id).first()
-
+        rank = user_comments.rank
+        _user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
         if user_comments.userID != session['userID']:
             flash("내 댓글만 삭제할 수 있습니다.")
         else:
+            # 댓글과 점수 삭제
             db.session.delete(user_comments)
             db.session.commit()
+
+        # 평점을 갱신하는 코드(삭제)
+        if _user_comments:
+            hap = 0
+            for i in range(0, len(_user_comments)):
+                hap += int(_user_comments[i].rank)
+
+            new_avg_rank = (hap - rank) / (len(_user_comments) - 1)
+            book_info.avg_rank = new_avg_rank
+            db.session.commit()
+
+        else:
+            book_info.avg_rank = rank
+            db.session.commit()
+        
     else:
         flash("로그인 후 댓글을 삭제할 수 있습니다.")
 
