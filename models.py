@@ -27,6 +27,7 @@ class myBooks(db.Model): # 도서관 내 책 정보 저장
     description          = db.Column(db.String(511)) 
     link                 = db.Column(URLType)
     left                 = db.Column(db.Integer)
+    avg_rank             = db.Column(db.Integer)
 
 class bookReviews(db.Model): # 책 리뷰 저장
     __tablename__ = 'bookReviews'
