@@ -2,6 +2,7 @@ from flask import Blueprint, flash, render_template, request, url_for, session, 
 from models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+
 bp = Blueprint('main', __name__, url_prefix = '/') # bp.route 하면 기본적으로 url주소는 /~으로 시작
 
 @bp.route('/') # 메인 페이지
@@ -15,9 +16,14 @@ def rent_button(book_id):
         flash("로그인 후 대여할 수 있습니다.")
         return redirect('/')
     
-
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
     now_info = nowRenting.query.filter(nowRenting.userID == session['userID'] and nowRenting.book_id == book_id).all()
+    you_have =  nowRenting.query.filter(nowRenting.userID == session['userID'] and nowRenting.book_id == book_id).first()
+
+    # 이미 빌린 경우 해당 책은 빌릴 수 없게 하기
+    if you_have and book_info.id == you_have.book_id:
+        flash("해당 책은 이미 대여하셨습니다.")
+        return redirect('/')
 
     if book_info.left >= 1:
         # 재고 수 - 1
@@ -125,15 +131,15 @@ def bannap_button(book_id):
 
     now_info = nowRenting.query.filter(nowRenting.book_id == book_id).first()
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
+    rent_History = rentHistory.query.filter(rentHistory.book_id == book_id).first()
 
     # 재고 수 + 1
     _left = book_info.left
     book_info.left = _left + 1
     db.session.commit()
 
-    # 대여 기록 남기기
-    rent = rentHistory.query.filter(rentHistory.book_id == book_id).first()
-    db.session.add(rent)
+    # 반납한 날짜 남기기
+    rent_History.Rdate = datetime.today()
     db.session.commit()
 
     # 책을 다시 도서관에 반납

@@ -1,14 +1,14 @@
 {% extends "basic.html" %}
 {% block title %} 엘리스 도서관 대여 기록 페이지 {% endblock %}
 {% block page_content %}
-    <p>{{user_info.username}}님의 대여기록입니다.</p>
+    <p>{{ user_info.username }}님의 대여기록입니다.</p>
     {% if rent_history %}
     <div class = "historyContainer">
       {% for history in rent_history %}
       <ul>
-        <li>책 이름: {{history.book_name}}</li>
+        <li>책 이름: {{ history.book_name }}</li>
         <li>평점: </li>
-        <li>대여일: {{history.Ldate}}</li>
+        <li>대여일: {{ history.Ldate }} ~ {{ history.Rdate }}</li>
       </ul>
       {% endfor %}
     </div>
