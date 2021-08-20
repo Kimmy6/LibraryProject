@@ -214,4 +214,15 @@ def deleting(book_id, comment_id):
         flash("로그인 후 댓글을 삭제할 수 있습니다.")
 
     return redirect(f'/book_intro/{book_id}')
-    
+
+@bp.route('/supervisor') # 관리자용 페이지
+def memberlist():
+    members = myMember.query.all()
+    return render_template("memberlist.html", members = members, homecoming = True)
+
+@bp.route('/supervisor/<user_ID>')
+def deleteMember(user_ID):
+    user_info = myMember.query.filter(myMember.userID == user_ID).first()
+    db.session.delete(user_info)
+    db.session.commit()
+    return redirect(url_for('main.memberlist'))
