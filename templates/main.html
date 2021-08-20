@@ -4,7 +4,7 @@
     <p>엘리스 도서관 도서 목록</p>
     {% if book_list %}
     <div class = "bookContainer">
-        {%for book in book_list %}
+        {%for book in book_list.items %}
         <ul class = "oneBook">
           <li><a href = "/book_intro/{{book.id}}">
             <img
@@ -22,6 +22,18 @@
         name = "{{book.id}}" 
         onclick = "location.href = 'b/{{book.id}}'">대여하기</button>
         {% endfor %}
+    </div>
+    <div class = "paginateArea">
+      {% for page in book_list.iter_pages() %}
+      {% if page %}
+        {% if page != book_list.page %}
+          <a href="{{ url_for('main.home', page=page) }}">{{ page }}</a>
+        {% else %}
+          <strong>{{ page }}</strong>
+        {% endif %}
+      {% endif %}
+    {%- endfor %}
+    </div>
     </div>
     {% else %}
         <p>비정상적인 접근입니다.</p>

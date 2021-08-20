@@ -7,8 +7,10 @@ bp = Blueprint('main', __name__, url_prefix = '/') # bp.route 하면 기본적�
 
 @bp.route('/') # 메인 페이지
 def home():
-    book_list = myBooks.query.order_by(myBooks.id)
+    page = request.args.get('page', 1, type = int)
+    book_list = myBooks.query.paginate(page = page, per_page = 8)
     return render_template('main.html', book_list = book_list) # 진자로 책 정보 보내서 책 리스트 페이지를 출력해야 함
+
 @bp.route('/b/<int:book_id>') # 버튼의 목표 url을 book_id로 지정 (대여하기)
 def rent_button(book_id):
     if not session:
