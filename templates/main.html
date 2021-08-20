@@ -15,28 +15,33 @@
           <li><a href = "/book_intro/{{book.id}}">{{ book.book_name }}</a></li>
           <li>평점: {{ book.avg_rank }}</li>
           <li>{{ book.left }}권 남음</li>
+          <button 
+          type = "submit" 
+          id = "rentButton" 
+          name = "{{book.id}}" 
+          onclick = "location.href = 'b/{{book.id}}'">대여하기</button>
         </ul>
-        <button 
-        type = "submit" 
-        id = "RentButton" 
-        name = "{{book.id}}" 
-        onclick = "location.href = 'b/{{book.id}}'">대여하기</button>
         {% endfor %}
     </div>
     <div class = "paginateArea">
       {% for page in book_list.iter_pages() %}
       {% if page %}
         {% if page != book_list.page %}
-          <a href="{{ url_for('main.home', page=page) }}">{{ page }}</a>
+          <!-- 페이지 이동 할 때의 동작-->
+          <div class = "numBox">
+            <a id = "nums" href="{{ url_for('main.home', page=page) }}">{{ page }}</a>
+          </div>
         {% else %}
-          <strong>{{ page }}</strong>
+          <!-- 페이지 이동 후 해당 페이지를 진하게 표시-->
+          <div class = "curnumBox">
+            <a id = "nums" href="{{ url_for('main.home', page=page) }}">{{ page }}</a>
+          </div>
         {% endif %}
       {% endif %}
-    {%- endfor %}
+    {% endfor %}
     </div>
     </div>
     {% else %}
         <p>비정상적인 접근입니다.</p>
-
     {% endif %}
 {% endblock %}

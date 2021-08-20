@@ -1,6 +1,6 @@
-<nav>
-    <p><a href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
-    <ul>
+<nav class = "navbar">
+    <p class = "navtitle"><a href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
+    <ul class = "container">
         <li><a href = "{{ url_for('main.history')}}">대여기록</a></li>
         <li><a href = "{{ url_for('main.bannap')}}">반납하기</a></li>
         {% if homecoming %}

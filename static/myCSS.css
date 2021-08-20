@@ -8,8 +8,46 @@ li {
 }
 
 li .coverImage{
-    height: 300px;
-    width: 150px;
+    height: 350px;
+    width: 250px;
     object-fit: contain;
     border: solid;
+}
+
+.bookContainer {
+    display: grid;
+    justify-items: center;
+    justify-content: space-around;
+    grid-template-columns: 200px 200px 200px 200px;
+}
+
+#rentButton {
+    display: flex;
+    justify-items: center;
+    align-items: baseline;
+}
+
+.paginateArea {
+    display: flex;
+    justify-content: center;
+}
+
+.paginateArea .numBox {
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+    text-align: center;
+}
+
+.paginateArea .curnumBox {
+    width: 18px;
+    height: 18px;
+    margin-right: 15px;
+    background-color: black;
+    text-align: center;
+}
+
+.paginateArea .curnumBox #nums{
+    color: white;
+    font-weight: bold;
 }
