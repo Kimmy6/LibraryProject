@@ -1,19 +1,16 @@
-<nav>
-    <p><a href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
-    <ul>
-        <li><a href = "{{ url_for('main.history')}}">대여기록</a></li>
-        <li><a href = "{{ url_for('main.bannap')}}">반납하기</a></li>
+<nav class = "navbar">
+    <p class = "navTitle"><a class = "navTitlelink" href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
+    <ul class = "navContainer">
+        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.history')}}">대여기록</a></li>
+        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.bannap')}}">반납하기</a></li>
         {% if homecoming %}
-        <li><a href = "{{ url_for('main.home')}}">홈으로</a></li>
+        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.home')}}">홈으로</a></li>
         {% else %}
         {% if session['userID'] %}
-        <li><a href = "{{ url_for('main.logout')}}">로그아웃</a></li>
+        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.logout')}}">로그아웃</a></li>
         {% else %}
-        <li><a href = "{{ url_for('main.login')}}">로그인</a></li>
+        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.login')}}">로그인</a></li>
         {% endif %}
         {% endif %}
     </ul>
-    {% if session['userID'] %}
-    <p class = "currentSession">현재 로그인 중: {{session['username']}}</p>
-    {% endif %}
 </nav>

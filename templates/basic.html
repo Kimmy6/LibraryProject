@@ -10,9 +10,11 @@
 <body>
     {% include "_navbar.html" %}
     {% block content %}
-    
+    {% if session['userID'] %}
+    <p class = "currentSession">현재 로그인 중: {{session['username']}}</p>
+    {% endif %}
     {% for msg in get_flashed_messages() %}
-    <div class="flash messages">
+    <div class="flashMsg">
         {{ msg }}
     </div>
     {% endfor %}

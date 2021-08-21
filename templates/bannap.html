@@ -2,13 +2,13 @@
 {% block title %} 엘리스 도서관 반납 페이지 {% endblock %}
 {% block page_content %}
     {% if user_book %}
-    <p>{{user_info.username}}님이 현재 대여하신 책들입니다.</p>
-    <div class = "historyContainer">
+    <p class = "bannapTitle">{{user_info.username}}님이 현재 대여하신 책들입니다.</p>
+    <div class = "bannapContainer">
       {% for book in user_book %}
-      <ul>
-        <li>책 이름: {{book.book_name}}</li>
-        <li>평점: </li>
-        <li>{{book.Ldate}}</li>
+      <ul class = "bannapList">
+        <li class = "bannapContents">책 이름: {{book.book_name}}</li>
+        <li class = "bannapContents">평점: </li>
+        <li class = "bannapContents">{{book.Ldate}}</li>
       </ul>
       <button type = "submit" id = "ReturnButton" name = "bannap/{{book.book_id}}" onclick = "location.href = 'bannap/{{book.book_id}}'">반납하기</button>
       {% endfor %}

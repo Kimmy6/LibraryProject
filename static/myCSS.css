@@ -1,6 +1,5 @@
 a {
     text-decoration: none;
-    color: black;
 }
 
 li {
@@ -8,8 +7,94 @@ li {
 }
 
 li .coverImage{
-    height: 300px;
-    width: 150px;
+    height: 350px;
+    width: 250px;
     object-fit: contain;
     border: solid;
+    border-color: black;
+}
+
+.flashMsg {
+    display: flex;
+    background-color: rgb(223, 187, 247);
+    color: rebeccapurple;
+    font-size: 17px;
+    
+}
+
+.bookContainer {
+    display: grid;
+    justify-items: center;
+    justify-content: space-around;
+    grid-template-columns: 200px 200px 200px 200px;
+}
+.bookContainer .bookBox .oneBook .bookTitle {
+    color: black;
+}
+#rentButton {
+    display: flex;
+    justify-items: center;
+    align-items: baseline;
+}
+
+.paginateArea {
+    display: flex;
+    justify-content: center;
+}
+.paginateArea #nums {
+    width: 25px;
+    height: 25px;
+    margin-left: 12.5px;
+    margin-right: 12.5px;
+}
+
+.paginateArea .numBox {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+
+}
+
+.paginateArea .curnumBox {
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.navbar {
+    display: inline-block;
+    background-color:rgb(223, 187, 247);
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+}
+
+.navbar .navTitle .navTitlelink {
+    color:rebeccapurple;
+}
+
+
+.navTitle {
+    display: inline;
+}
+
+.navContainer {
+    display: inline;
+}
+
+.navContainer .navContents {
+    display: inline;
+}
+
+.navContainer .navContents .navContentslink {
+    color: rebeccapurple;
+}
+
+.navbar .currentSession {
+    color:rgb(0, 0, 0);
 }
