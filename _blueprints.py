@@ -150,13 +150,15 @@ def bannap_button(book_id):
     flash(f"요청하신 {now_info.book_name}의 반납이 완료되었습니다.")
     return redirect(url_for('main.bannap'))
 
-@bp.route('/book_intro/<int:book_id>', methods = ["POST", "GET"]) # 책 소개 및 리뷰 작성 페이지
+@bp.route('/book_intro/<int:book_id>', methods = ["POST", "GET"]) # 책 소개 및 댓글 작성 페이지
 def intro(book_id):
     if request.method == "GET":
         book_info = myBooks.query.filter(myBooks.id == book_id).first()
         user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
         return render_template('book_intro.html', book_info = book_info, user_comments = user_comments, homecoming = True) # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
 
+    if not session:
+        return redirect('/book_intro/<int:book_id>')
     comments = request.form['writingComments']
     rank = int(request.form['bookRank'])
 
@@ -216,8 +218,10 @@ def deleting(book_id, comment_id):
 
     return redirect(f'/book_intro/{book_id}')
 
-@bp.route('/supervisor') # 관리자용 페이지
+@bp.route('/supervisor') # 관리자용 페이지 (나중에 삭제하기, DB관리용)
 def memberlist():
+    if not session or session['username'] != "Superman":
+        return redirect(url_for('main.home'))
     members = myMember.query.all()
     return render_template("memberlist.html", members = members, homecoming = True)
 

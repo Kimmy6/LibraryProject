@@ -5,6 +5,7 @@
     {% if book_list %}
     <div class = "bookContainer">
         {%for book in book_list.items %}
+        <div class = "bookBox">
         <ul class = "oneBook">
           <li><a href = "/book_intro/{{book.id}}">
             <img
@@ -12,7 +13,7 @@
              src = "{{url_for('static', filename = 'book_img')}}/{{book.id}}.jpg" 
              alt = "{{book.book_name}}"
              ></a></li>
-          <li><a href = "/book_intro/{{book.id}}">{{ book.book_name }}</a></li>
+          <li><a class = "bookTitle" href = "/book_intro/{{book.id}}">{{ book.book_name }}</a></li>
           <li>평점: {{ book.avg_rank }}</li>
           <li>{{ book.left }}권 남음</li>
           <button 
@@ -21,6 +22,7 @@
           name = "{{book.id}}" 
           onclick = "location.href = 'b/{{book.id}}'">대여하기</button>
         </ul>
+        </div>
         {% endfor %}
     </div>
     <div class = "paginateArea">
@@ -28,14 +30,10 @@
       {% if page %}
         {% if page != book_list.page %}
           <!-- 페이지 이동 할 때의 동작-->
-          <div class = "numBox">
-            <a id = "nums" href="{{ url_for('main.home', page=page) }}">{{ page }}</a>
-          </div>
+            <a id = "nums" href="{{ url_for('main.home', page=page) }}"><div class = "numBox">{{ page }}</div></a>
         {% else %}
-          <!-- 페이지 이동 후 해당 페이지를 진하게 표시-->
-          <div class = "curnumBox">
-            <a id = "nums" href="{{ url_for('main.home', page=page) }}">{{ page }}</a>
-          </div>
+          <!-- 페이지 이동 후 해당 페이지를 하이라이트하여 표시-->
+            <a id = "nums" href="{{ url_for('main.home', page=page) }}"><div class = "curnumBox">{{ page }}</div></a>
         {% endif %}
       {% endif %}
     {% endfor %}
