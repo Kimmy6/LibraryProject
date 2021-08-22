@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 bp = Blueprint('main', __name__, url_prefix = '/') # bp.route 하면 기본적으로 url주소는 /~으로 시작
+global cur_page # 현재 페이지를 담는 변수를 global하게 선언하여 어디서든 사용 가능하게 함
+cur_page = 1
 
 @bp.route('/') # 메인 페이지
 def home():
@@ -14,20 +16,24 @@ def home():
 @bp.route('/b/<int:book_id>') # 버튼의 목표 url을 book_id로 지정 (대여하기)
 def rent_button(book_id):
     if not session:
-        flash("로그인 후 대여할 수 있습니다.")
-        return redirect("/")
-    
+        cur_page = (book_id // 8) + 1
+        flash("로그인 후 대여해 주세요.")
+        return redirect(f'/?page={cur_page}')
+        cur_page = 1
+
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
     now_info = nowRenting.query.filter(nowRenting.userID == session['userID'] and nowRenting.book_id == book_id).all()
     now_id_list = list(now_info[i].book_id for i in range(len(now_info))) # 세션에 로그인한 유저가 빌린 책의 id를 모아놓는 리스트
-
     # 이미 빌린 경우 해당 책은 빌릴 수 없게 하기
     if now_info:
+        cur_page = (book_id // 8) + 1
         if book_id in now_id_list:
             flash("이미 대여한 책입니다.")
-            return redirect('/')
-    
+            return redirect(f'/?page={cur_page}')
+            cur_page = 1
+
     # 책 빌리기
+    cur_page = (book_id // 8) + 1
     if book_info.left >= 1:
         # 재고 수 - 1
         past_left = book_info.left
@@ -43,10 +49,13 @@ def rent_button(book_id):
         outside = nowRenting(book_id = book_info.id, book_name = book_info.book_name, userID = session['userID'], Ldate = datetime.today())
         db.session.add(outside)
         db.session.commit()
-        return redirect('/')
+        cur_page = (book_id // 8) + 1
+        return redirect(f'/?page={cur_page}')
+        cur_page = 1
     else:
         flash("재고가 없습니다. 다른 책을 선택해 주세요.")
-        return redirect('/')
+        return redirect(f'/?page={cur_page}')
+        cur_page = 1
 
 @bp.route('/login', methods = ["POST", "GET"]) # 로그인 페이지
 def login():
@@ -112,7 +121,7 @@ def submit():
 def history():
     if not session:
         flash("로그인 후 이용해 주세요.")
-        return redirect('/')
+        return redirect(f'/')
 
     user_info = myMember.query.filter(myMember.userID == session['userID']).first()
     rent_history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
