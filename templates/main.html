@@ -13,7 +13,7 @@
              src = "{{url_for('static', filename = 'book_img')}}/{{book.id}}.jpg" 
              alt = "{{book.book_name}}"
              ></a></li>
-          <li><a class = "bookTitle" href = "/book_intro/{{book.id}}">{{ book.book_name }}</a></li>
+          <li class = "titleBox"><a class = "bookTitle" href = "/book_intro/{{book.id}}"><div id = "titleText">{{ book.book_name }}</div></a></li>
           <li>평점: {{ book.avg_rank }}</li>
           <li>{{ book.left }}권 남음</li>
           <button 

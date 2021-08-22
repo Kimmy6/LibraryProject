@@ -2,11 +2,11 @@
     <p class = "navTitle"><a class = "navTitlelink" href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
     {% if session['userID'] %}
     <div class = "currentBox">
-        <p class = "currentSession">현재 로그인 중: {{session['username']}}</p>
+        <p class = "currentSession">{{session['username']}}님 환영합니다.</p>
     </div>
     {% endif %}
     <ul class = "navContainer">
-        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.history')}}">대여기록</a></li>
+        <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.history')}}" style = "margin-left: 0px">대여기록</a></li>
         <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.bannap')}}">반납하기</a></li>
         {% if homecoming %}
         <li class = "navContents"><a class = "navContentslink" href = "{{ url_for('main.home')}}">홈으로</a></li>

@@ -4,6 +4,7 @@ a {
 
 li {
     list-style: none;
+    cursor: context-menu;
 }
 
 .fullyBasic {
@@ -37,9 +38,19 @@ li .coverImage{
     justify-content: space-around;
     grid-template-columns: 200px 200px 200px 200px;
 }
+.bookContainer .bookBox .oneBook .titleBox {
+    width: 220px;
+}
 .bookContainer .bookBox .oneBook .bookTitle {
     color: black;
 }
+
+.bookContainer .bookBox .oneBook .bookTitle #titleText {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+}
+
 #rentButton {
     display: flex;
     justify-items: center;
@@ -95,8 +106,9 @@ li .coverImage{
 }
 
 .navbar .currentBox .currentSession {
-    color:rgb(0, 0, 0);
+    color:rgb(80, 2, 116);
     justify-content: space-between;
+    cursor: context-menu;
 }
 
 .navTitle {
@@ -117,3 +129,8 @@ li .coverImage{
     margin-right: 12.5px;
 }
 
+.mainTitle {
+    color: rebeccapurple;
+    font-size: 18px;
+    cursor: context-menu;
+}
