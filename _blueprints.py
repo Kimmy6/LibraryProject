@@ -73,6 +73,7 @@ def login():
 def logout():
     user_name = session['username']
     session.clear()
+    flash("로그아웃 되었습니다.")
     return redirect('/')
 
 @bp.route('/submit', methods = ["POST", "GET"]) # 회원가입 페이지

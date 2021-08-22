@@ -6,20 +6,29 @@ li {
     list-style: none;
 }
 
+.fullyBasic {
+    background-color: rgb(242, 223, 255);
+}
+
 li .coverImage{
     height: 350px;
     width: 250px;
-    object-fit: contain;
+    object-fit: fill;
     border: solid;
-    border-color: black;
+    border-width: 2.5px;
+    border-color: rgb(158, 69, 218);
+    border-radius: 5px;
 }
 
 .flashMsg {
+    transform: translateY(-10px);
+    height: 30px;
     display: flex;
     background-color: rgb(223, 187, 247);
     color: rebeccapurple;
     font-size: 17px;
-    
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .bookContainer {
@@ -52,7 +61,7 @@ li .coverImage{
     width: 25px;
     height: 25px;
     text-align: center;
-
+    color: black;
 }
 
 .paginateArea .curnumBox {
@@ -66,8 +75,11 @@ li .coverImage{
 }
 
 .navbar {
+    z-index: 1;
+    height: 86px;
     display: inline-block;
     background-color:rgb(223, 187, 247);
+    border-radius: 10px;
     font-size: 25px;
     display: flex;
     justify-content: space-between;
@@ -78,6 +90,14 @@ li .coverImage{
     color:rebeccapurple;
 }
 
+.navbar .currentBox {
+    justify-content: space-between;
+}
+
+.navbar .currentBox .currentSession {
+    color:rgb(0, 0, 0);
+    justify-content: space-between;
+}
 
 .navTitle {
     display: inline;
@@ -93,8 +113,7 @@ li .coverImage{
 
 .navContainer .navContents .navContentslink {
     color: rebeccapurple;
+    margin-left: 12.5px;
+    margin-right: 12.5px;
 }
 
-.navbar .currentSession {
-    color:rgb(0, 0, 0);
-}

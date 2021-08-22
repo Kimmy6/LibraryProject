@@ -1,7 +1,7 @@
 {% extends "basic.html" %}
 {% block title %} 엘리스 도서관 대여 시스템 {% endblock %}
 {% block page_content %}
-    <p>엘리스 도서관 도서 목록</p>
+    <div class = "mainUpperBox"><p class = "mainTitle">엘리스 도서관 도서 목록</p></div>
     {% if book_list %}
     <div class = "bookContainer">
         {%for book in book_list.items %}

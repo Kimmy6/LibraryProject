@@ -7,15 +7,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myCSS.css') }}"/>
     <title>{% block title %} {% endblock %}</title>
 </head>
-<body>
+<body class = "fullyBasic">
     {% include "_navbar.html" %}
     {% block content %}
-    {% if session['userID'] %}
-    <p class = "currentSession">현재 로그인 중: {{session['username']}}</p>
-    {% endif %}
     {% for msg in get_flashed_messages() %}
-    <div class="flashMsg">
-        {{ msg }}
+    <div class = "flashMsgBox">
+        <div class="flashMsg">
+            {{ msg }}
+        </div>
     </div>
     {% endfor %}
     {% block page_content %}
