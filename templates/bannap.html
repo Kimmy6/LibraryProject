@@ -2,17 +2,25 @@
 {% block title %} 엘리스 도서관 반납 페이지 {% endblock %}
 {% block page_content %}
     {% if user_book %}
-    <p class = "bannapTitle">{{user_info.username}}님이 현재 대여하신 책들입니다.</p>
-    <div class = "bannapContainer">
+    <p class = "mainTitle">{{user_info.username}}님이 현재 대여하신 책들입니다.</p>
+    <div class = "bookContainer">
       {% for book in user_book %}
-      <ul class = "bannapList">
-        <li class = "bannapContents">책 이름: {{book.book_name}}</li>
-        <li class = "bannapContents">평점: </li>
-        <li class = "bannapContents">{{book.Ldate}}</li>
+      <div class = "bookBox">
+      <ul class = "oneBook">
+        <li>
+          <img
+          class = "coverImage"
+          src = "{{url_for('static', filename = 'book_img')}}/{{book.id}}.jpg" 
+          alt = "{{book.book_name}}"
+          >
+        </li>
+        <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{book.book_name}}</div></div></li>
+        <li>평점: </li>
+        <li>{{book.Ldate}}</li>
+        <button type = "submit" id = "bannapButton" name = "bannap/{{book.book_id}}" onclick = "location.href = 'bannap/{{book.book_id}}'">반납하기</button>
       </ul>
-      <button type = "submit" id = "ReturnButton" name = "bannap/{{book.book_id}}" onclick = "location.href = 'bannap/{{book.book_id}}'">반납하기</button>
+    </div>
       {% endfor %}
-    
     </div>
     {% else %}
     <p>{{user_info.username}}님은 대여하신 책이 없습니다.</p>

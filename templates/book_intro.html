@@ -2,21 +2,25 @@
 {% block title %} 책 소개 페이지 {% endblock %}
 {% block page_content %}
 {% if book_info %}
-<div class = "bookInfo">
-    <ul>
+<div class = "bookinfoContainer">
+    <ul class = "onebookInfo">
+      <div class ="coverImage">
       <li>
         <img
-        class = "coverImage"
+        id = "introImage"
         src = "{{url_for('static', filename = 'book_img')}}/{{book_info.id}}.jpg" 
         alt = "{{book_info.book_name}}"
         >
       </li>
-      <li>책이름 {{book_info.book_name}}</li>
-      <li>출판사 {{book_info.publisher}}</li>
-      <li>저자 {{book_info.author}}</li>
-      <li>출간일 {{book_info.publication_date}}</li>
-      <li>페이지 수 {{book_info.pages}}</li>
-      <li>ISBN 코드 {{book_info.isbn}}</li>
+      </div>
+      <div class = "bookInformation">
+      <li id = "label">책이름: {{book_info.book_name}}</li>
+      <li id = "label">출판사: {{book_info.publisher}}</li>
+      <li id = "label">저자: {{book_info.author}}</li>
+      <li id = "label">출간일: {{book_info.publication_date}}</li>
+      <li id = "label">페이지 수: {{book_info.pages}}</li>
+      <li id = "label">ISBN 코드: {{book_info.isbn}}</li>
+      </div>
     </ul>
 </div>
 <div class = "mainContainer">
