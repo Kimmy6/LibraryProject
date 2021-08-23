@@ -16,7 +16,7 @@ def home():
 @bp.route('/b/<int:book_id>') # 버튼의 목표 url을 book_id로 지정 (대여하기)
 def rent_button(book_id):
     if not session:
-        cur_page = (book_id // 8) + 1
+        cur_page = (book_id // 9) + 1
         flash("로그인 후 대여해 주세요.")
         return redirect(f'/?page={cur_page}')
         cur_page = 1
@@ -26,14 +26,14 @@ def rent_button(book_id):
     now_id_list = list(now_info[i].book_id for i in range(len(now_info))) # 세션에 로그인한 유저가 빌린 책의 id를 모아놓는 리스트
     # 이미 빌린 경우 해당 책은 빌릴 수 없게 하기
     if now_info:
-        cur_page = (book_id // 8) + 1
+        cur_page = (book_id // 9) + 1
         if book_id in now_id_list:
             flash("이미 대여한 책입니다.")
             return redirect(f'/?page={cur_page}')
             cur_page = 1
 
     # 책 빌리기
-    cur_page = (book_id // 8) + 1
+    cur_page = (book_id // 9) + 1
     if book_info.left >= 1:
         # 재고 수 - 1
         past_left = book_info.left
@@ -49,7 +49,7 @@ def rent_button(book_id):
         outside = nowRenting(book_id = book_info.id, book_name = book_info.book_name, userID = session['userID'], Ldate = datetime.today())
         db.session.add(outside)
         db.session.commit()
-        cur_page = (book_id // 8) + 1
+        cur_page = (book_id // 9) + 1
         return redirect(f'/?page={cur_page}')
         cur_page = 1
     else:
@@ -144,7 +144,7 @@ def bannap_button(book_id):
 
     now_info = nowRenting.query.filter(nowRenting.book_id == book_id).first()
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
-    rent_History = rentHistory.query.filter(rentHistory.book_id == book_id).first()
+    rent_Histories = rentHistory.query.filter(rentHistory.book_id == book_id).all()
 
     # 재고 수 + 1
     _left = book_info.left
@@ -152,8 +152,7 @@ def bannap_button(book_id):
     db.session.commit()
 
     # 반납한 날짜 남기기
-    
-    rent_History.Rdate = datetime.today()
+    rent_Histories[-1].Rdate = datetime.today()
     db.session.commit()
 
     # 책을 다시 도서관에 반납

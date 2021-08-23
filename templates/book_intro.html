@@ -2,6 +2,7 @@
 {% block title %} 책 소개 페이지 {% endblock %}
 {% block page_content %}
 {% if book_info %}
+
 <div class = "bookinfoContainer">
     <ul class = "onebookInfo">
       <div class ="coverImage">
@@ -32,9 +33,9 @@
     <p>댓글</p>
     {% for comment in user_comments %}
     <ul>
-        <li>작성자 {{comment.username}}</li>
-        <li>내용 {{comment.comments}}</li>
-        <li>평점 {{comment.rank}}</li>
+        <li>작성자: {{comment.username}}</li>
+        <li>내용: {{comment.comments}}</li>
+        <li>평점: {{comment.rank}}</li>
         <li><button type = "submit" 
         id = "deletingComments_{{comment.id}}" 
         name = "deletingComments_{{comment.id}}" 
@@ -43,8 +44,9 @@
     {% endfor %} <br>
     <label>댓글 작성</label> <br>
     <form method = "post">
-    <input type = "text" id = "writingComments" name = "writingComments">
+    <input type = "text" id = "writingComments" name = "writingComments" required>
     <label>평점</label><input type = "range" id = "bookRank" name = "bookRank" value = 0 min = 0 max = 5 step = 1>
+    <span id = "livescore"></span>
     <button type = "submit" 
     id = "writingComments_{{book_info.id}}" 
     name = "writingComments_{{book_info.id}}">작성하기</button>
@@ -55,3 +57,5 @@
 <p>올바르지 못한 접근입니다.</p>
 {% endif %}
 {% endblock %}
+
+<script src="rankview.js"></script>
