@@ -68,6 +68,9 @@ li .coverImage{
     width: 220px;
 }
 
+.bookContainer .bookBox .oneBook .starBox .bookAvgscore {
+    justify-content: center;
+}
 .bookContainer .bookBox .oneBook .bookTitle {
     color: black;
 }
@@ -222,4 +225,19 @@ li .coverImage{
     margin-bottom: 50px;
     transform: translateY(-10px);
     font-size: 18px;
+}
+
+.loginFormBox {
+    margin-left: 17.5px;
+}
+
+.loginFormBox .loginForm #inputForm {
+    font-size: 22px;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.loginFormBox .loginForm #loginButton {
+    margin-top: 10px;
+    font-size: 19px;
 }

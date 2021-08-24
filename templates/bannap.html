@@ -10,12 +10,12 @@
         <li>
           <img
           class = "coverImage"
-          src = "{{url_for('static', filename = 'book_img')}}/{{book.id}}.jpg" 
+          src = "{{url_for('static', filename = 'book_img')}}/{{book.book_id}}.jpg" 
           alt = "{{book.book_name}}"
           >
         </li>
         <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{book.book_name}}</div></div></li>
-        <li>평점: </li>
+        <li><span class = "bannapAvgscore"></li>
         <li>{{book.Ldate}}</li>
         <button type = "submit" id = "bannapButton" name = "bannap/{{book.book_id}}" onclick = "location.href = 'bannap/{{book.book_id}}'">반납하기</button>
       </ul>

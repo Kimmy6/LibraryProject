@@ -2,12 +2,14 @@
 {% block title %} 로그인하기 {% endblock %}
 {% block page_content %}
     <p class = "mainTitle">엘리스 도서관 멤버십 로그인</p>
-    <form class = "IForm" action = "{{ url_for('main.login') }}" method = "post">
-        ID : <br>
-        <input type = "email" id = "userID" name = "userID" ><br>
-        Password : <br>
-        <input type = "password" name = "userPW" ><br>
-        <button type = "submit" class = "LoginButton">LOGIN</button>
+    <div class = "loginFormBox">
+    <form class = "loginForm" action = "{{ url_for('main.login') }}" method = "post">
+        <label id = "smallTitle">ID : <br></label>
+        <input type = "email" id = "inputForm" name = "userID" ><br>
+        <label id = "smallTitle">Password : <br></label>
+        <input type = "password" id = "inputForm" name = "userPW" ><br>
+        <input type = "submit" id = "loginButton" value = "Login">
     </form>
-    <a href = "{{ url_for('main.submit' )}}">회원가입</a>
+    </div>
+    <a href = "{{ url_for('main.submit') }}">회원가입</a>
 {% endblock %}
