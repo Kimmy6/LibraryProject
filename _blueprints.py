@@ -168,9 +168,13 @@ def intro(book_id):
         book_info = myBooks.query.filter(myBooks.id == book_id).first()
         user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
         return render_template('book_intro.html', book_info = book_info, user_comments = user_comments, homecoming = True) # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
-
+    
+    _book_id = request.args.get('book_id')
+    
     if not session:
-        return redirect('/book_intro/<int:book_id>')
+        flash("로그인 후 댓글을 작성할 수 있습니다.")
+        return redirect(f'/book_intro/{book_id}')
+
     comments = request.form['writingComments']
     rank = int(request.form['bookRank'])
 
