@@ -14,7 +14,7 @@
              alt = "{{book.book_name}}"
              ></a></li>
           <li class = "titleBox"><a class = "booktitle" href = "/book_intro/{{book.id}}"><div id = "titleText">{{ book.book_name }}</div></a></li>
-          <li class = "starBox"><span class = "bookAvgscore">{{ book.avg_rank|int }}</span></li>
+          <li class = "starBox"><span class = "bookAvgscore">{{ book.avg_rank|round(0) }}</span></li>
           <li>{{ book.left }}권 남음</li>
           <button 
           type = "submit" 

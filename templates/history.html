@@ -1,15 +1,23 @@
 {% extends "basic.html" %}
 {% block title %} 엘리스 도서관 대여 기록 페이지 {% endblock %}
 {% block page_content %}
-    <p>{{ user_info.username }}님의 대여기록입니다.</p>
+    <p class = "mainTitle">{{ user_info.username }}님의 대여기록입니다.</p>
     {% if rent_history %}
-    <div class = "historyContainer">
+    <div class = "bookContainer">
       {% for history in rent_history %}
-      <ul>
-        <li>책 이름: {{ history.book_name }}</li>
+      <div class = "bookBox">
+      <ul class = "oneBook">
+        <li>
+          <img
+          class = "coverImage" 
+          src = "{{url_for('static', filename = 'book_img')}}/{{history.book_id}}.jpg"
+          alt = "{{history.book_name}}">
+        </li>
+        <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{ history.book_name }}</div></div></li>
         <li>평점: </li>
         <li>대여일: {{ history.Ldate }} ~ {{ history.Rdate }}</li>
       </ul>
+      </div>
       {% endfor %}
     </div>
     {% else %}
