@@ -158,3 +158,21 @@ li .coverImage{
     cursor: context-menu;
 }
 
+.mainContainer .bookIntro #introTitle {
+    color: black;
+    font-size: 25px;
+    cursor: context-menu;
+}
+
+.mainContainer .bookIntro .contentsBox {
+    margin-left: 50px;
+    width: 650px;
+    height: 350px;
+}
+
+.mainContainer .bookIntro #introContents {
+    color: black;
+    font-size: 18px;
+    cursor: context-menu;
+
+}
