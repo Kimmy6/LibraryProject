@@ -32,32 +32,37 @@
     </div>
   </div>
   <div class = "comContainer">
-    <p>댓글</p>
+    <p id = "introTitle">댓글</p>
     {% for comment in user_comments %}
-    <ul>
-        <li>작성자: {{comment.username}}</li>
-        <li>내용: {{comment.comments}}</li>
-        <li>평점: {{comment.rank}}</li>
-        <li><button type = "submit" 
+    <div class = "oneCommentBox">
+    <ul class = "oneComment">
+        <li id = "comContents">작성자: {{comment.username}}</li>
+        <li id = "comContents">{{comment.comments}}</li>
+        <li id = "comContents">평점: {{comment.rank}}</li>
+        <li id = "comContents"><button type = "submit" 
         id = "deletingComments_{{comment.id}}" 
         name = "deletingComments_{{comment.id}}" 
         onclick = "location.href = '/deleting/{{book_info.id}}/{{comment.id}}'">댓글 삭제</button></li>
     </ul>
+    </div>
     {% endfor %} <br>
-    <label>댓글 작성</label> <br>
+    <div class = "writingCommentBox">
     <form method = "post">
-    <input type = "text" id = "writingComments" name = "writingComments" required>
-    <label>평점</label><input 
+    <p id = "introTitle">댓글 작성</p>
+    <label id = "smallTitle">평점</label>
+    <input 
     type = "range" 
     id = "bookRank" 
     name = "bookRank" 
     value = 0 min = 0 max = 5 step = 1
     oninput = "document.getElementById('livescore').innerHTML=this.value;">
-    <span id = "livescore">0</span>
+    <span id = "livescore">0</span> <br>
+    <textarea id = "writingComments" name = "writingComments" required></textarea>
     <button type = "submit" 
-    id = "writingComments_{{book_info.id}}" 
+    id = "writingCommentsButton" 
     name = "writingComments_{{book_info.id}}">작성하기</button>
-    </form>    
+    </form>
+    </div>    
     </div>
 </div>
 {% else %}

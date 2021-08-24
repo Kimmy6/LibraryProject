@@ -6,6 +6,12 @@ li {
     list-style: none;
     cursor: context-menu;
 }
+
+
+#smallTitle {
+    font-size: 18px;
+}
+
 .coverImage #introImage {
     height: 450px;
     width: 300px;
@@ -158,21 +164,60 @@ li .coverImage{
     cursor: context-menu;
 }
 
-.mainContainer .bookIntro #introTitle {
+#introTitle {
     color: black;
     font-size: 25px;
     cursor: context-menu;
 }
 
 .mainContainer .bookIntro .contentsBox {
-    margin-left: 50px;
-    width: 650px;
-    height: 350px;
+    margin-left: 25px;
+    width: 1450px;
+    height: 250px;
+    border: solid;
+    border-width: 2px;
+    border-radius: 10px;
 }
 
 .mainContainer .bookIntro #introContents {
+    padding: 15px;
     color: black;
     font-size: 18px;
     cursor: context-menu;
+}
 
+.comContainer .oneCommentBox{
+    border-top: solid;
+    border-bottom: solid;
+    border-color: azure;
+    border-width: 2px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.comContainer .oneCommentBox .oneComment {
+    padding-left: 25px;
+    padding-right: 25px;    
+}
+
+.comContainer .oneCommentBox .oneComment #comContents {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    font-size: 16px;
+    white-space: pre;
+}
+
+.writingCommentBox #writingComments {
+    margin-top: 25px;
+    height: 140px;
+    width: 800px;
+    font-size: 17px;
+    resize: none;
+}
+
+.writingCommentBox #writingCommentsButton {
+    margin-left: 25px;
+    margin-bottom: 50px;
+    transform: translateY(-10px);
+    font-size: 18px;
 }

@@ -14,7 +14,7 @@
              alt = "{{book.book_name}}"
              ></a></li>
           <li class = "titleBox"><a class = "booktitle" href = "/book_intro/{{book.id}}"><div id = "titleText">{{ book.book_name }}</div></a></li>
-          <li>평점: {{ book.avg_rank }}</li>
+          <li>평점: <span class = "bookAvgscore">{{ book.avg_rank|int }}</span></li>
           <li>{{ book.left }}권 남음</li>
           <button 
           type = "submit" 
@@ -43,3 +43,4 @@
         <p>비정상적인 접근입니다.</p>
     {% endif %}
 {% endblock %}
+<script type = "text/javascript" src = "/js/star.js"></script>
