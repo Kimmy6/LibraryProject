@@ -121,7 +121,7 @@ def submit():
 def history():
     if not session:
         flash("로그인 후 이용해 주세요.")
-        return redirect(f'/')
+        return redirect('/')
 
     user_info = myMember.query.filter(myMember.userID == session['userID']).first()
     rent_history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
