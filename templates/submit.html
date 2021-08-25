@@ -1,16 +1,25 @@
 {% extends "basic.html" %}
 {% block title %} 회원가입하기 {% endblock %}
 {% block page_content %}
-    <p>엘리스 도서관 멤버십 가입하기</p>
-    <form class = "IForm" action = "{{ url_for('main.submit') }}" method = "post">
-        ID : <br>
-        <input type = "email" id = "SuserID" name = "SuserID" ><br>
-        Password : <br>
-        <input type = "password" id = "SuserPW" name = "SuserPW" pattern = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()=,./;':<>?_+/*-])[A-Za-z\d!@#$%^&*()=,./;':<>?_+/*-]{10,}$"><br>
-        Repeat Password : <br>
-        <input type = "password" id = "SuserPW_C" name = "SuserPW_C" ><br>
-        Name : <br>
-        <input type = "text" name = "Susername" ><br>
-        <button type = "submit" class = "SubmitButton">SUBMIT</button>
+    <p class = "mainTitle">엘리스 도서관 멤버십 가입하기</p>
+    <div class = "loginFormBox">
+    <form class = "loginForm" action = "{{ url_for('main.submit') }}" method = "post">
+        <label id = "smallTitle">ID : </label> <br>
+        <input required = "true" autocomplete= "off" type = "email" id = "inputForm" name = "SuserID" ><br>
+        <label id = "smallTitle">Password : </label> <br>
+        <input required = "true" autocomplete= "off" type = "password" id = "inputForm" name = "SuserPW" pattern = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()=,./;':<>?_+/*-])[A-Za-z\d!@#$%^&*()=,./;':<>?_+/*-]{8,}|^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{10,}|^(?=.*\d)(?=.*[!@#$%^&*()=,./;':<>?_+/*-])[\d!@#$%^&*()=,./;':<>?_+/*-]{10,}|^(?=.*[A-Za-z])(?=.*[!@#$%^&*()=,./;':<>?_+/*-])[A-Za-z$!@#$%^&*()=,./;':<>?_+/*-]{10,}$">
+        <br> <label id = "smallTitle">Repeat Password : </label> <br>
+        <input required = "true" autocomplete= "off" type = "password" id = "inputForm" name = "SuserPW_C" ><br>
+        <label id = "smallTitle">Name : </label> <br>
+        <input required = "true" autocomplete= "off" type = "text" id = "inputForm" name = "Susername" pattern = "(?=.*[A-Za-z])[A-Za-z]{0,}|(?=.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣])[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{0,}"> <span id = "reallysmallTitle">한글 / 영어만 입력하세요.</span><br>
+        <button type = "submit" id = "loginButton">SUBMIT</button>
+        <div class = "noticeBox">
+            <span id = "reallysmallTitle">※ 비밀번호는 다음과 같은 3개의 조건 중 하나로 작성해야 합니다.</span><br>
+            <span id = "reallysmallTitle">1. 영문, 숫자, 특수문자를 모두 포함할 경우 8자 이상으로 작성</span> <br>
+            <span id = "reallysmallTitle">2. 영문, 숫자, 특수문자 3가지 중 2가지만 포함할 경우 10자 이상으로 작성</span> <br>
+            <span id = "reallysmallTitle">상기 조건에 맞지 않을 경우 회원가입이 불가능합니다.</span> <br>
+        </div>
     </form>
+    </div>
+
 {% endblock %}

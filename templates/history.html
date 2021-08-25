@@ -14,8 +14,8 @@
           alt = "{{history.book_name}}">
         </li>
         <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{ history.book_name }}</div></div></li>
-        <li>평점: </li>
-        <li>대여일: {{ history.Ldate }} ~ {{ history.Rdate }}</li>
+        <li class = "historyAvgscore">{{history.avg_rank}}</li>
+        <li>{{ history.Ldate }} ~ {{ history.Rdate }}</li>
       </ul>
       </div>
       {% endfor %}
@@ -23,4 +23,5 @@
     {% else %}
     <article>{{user_info.username}}님은 대여하신 기록이 없습니다.</article>
     {% endif %}
+<script type = "text/javascript" src = "{{ url_for('static', filename = 'js/star_history.js') }}"></script>
 {% endblock %}

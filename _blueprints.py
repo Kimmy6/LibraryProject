@@ -41,12 +41,12 @@ def rent_button(book_id):
         db.session.commit()
 
         # 대여기록을 DB에 추가
-        rent = rentHistory(userID = session['userID'], book_id = book_info.id, book_name = book_info.book_name, Ldate = datetime.today())
+        rent = rentHistory(userID = session['userID'], book_id = book_info.id, book_name = book_info.book_name, Ldate = datetime.today(), avg_rank = book_info.avg_rank)
         db.session.add(rent)
         db.session.commit()
 
         # 책을 도서관에서 빼와서 DB에 옮김
-        outside = nowRenting(book_id = book_info.id, book_name = book_info.book_name, userID = session['userID'], Ldate = datetime.today())
+        outside = nowRenting(book_id = book_info.id, book_name = book_info.book_name, userID = session['userID'], Ldate = datetime.today(), avg_rank = book_info.avg_rank)
         db.session.add(outside)
         db.session.commit()
         cur_page = (book_id // 9) + 1
@@ -136,7 +136,7 @@ def bannap():
     user_info = myMember.query.filter(myMember.userID == session['userID']).first()
     user_book = nowRenting.query.filter(nowRenting.userID == session['userID']).all()
     history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
-    
+
     return render_template('bannap.html', user_book = user_book , user_info = user_info, history = history, homecoming = True)
 
 @bp.route('/bannap/<int:book_id>') # 버튼의 목표 url을 bannap/book_id로 지정 (반납하기)
@@ -152,7 +152,12 @@ def bannap_button(book_id):
     db.session.commit()
 
     # 반납한 날짜 남기기
-    rent_Histories[-1].Rdate = datetime.today()
+    if not rent_Histories:
+        rentHistory(Rdate = datetime.today())
+
+    else:
+        rent_Histories[-1].Rdate = datetime.today()
+
     db.session.commit()
 
     # 책을 다시 도서관에 반납
