@@ -15,7 +15,11 @@
         </li>
         <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{ history.book_name }}</div></div></li>
         <li class = "historyAvgscore">{{history.avg_rank}}</li>
+        {% if history.Rdate %}
         <li>{{ history.Ldate }} ~ {{ history.Rdate }}</li>
+        {% else %}
+        <li>대여일: {{ history.Ldate }}</li>
+        {% endif %}
       </ul>
       </div>
       {% endfor %}

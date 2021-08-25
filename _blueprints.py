@@ -171,8 +171,13 @@ def bannap_button(book_id):
 def intro(book_id):
     if request.method == "GET":
         book_info = myBooks.query.filter(myBooks.id == book_id).first()
-        user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
-        return render_template('book_intro.html', book_info = book_info, user_comments = user_comments, homecoming = True) # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
+        user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).order_by(bookReviews.writingtime.desc()).all()
+        if user_comments:
+            counter = len(user_comments)
+        else:
+            counter = 0
+        
+        return render_template('book_intro.html', book_info = book_info, user_comments = user_comments, counter = counter, homecoming = True) # 진자로 책 정보 보내서 정보 페이지를 출력해야 함 
     
     _book_id = request.args.get('book_id')
     
@@ -187,7 +192,7 @@ def intro(book_id):
     user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
     
     # 댓글과 점수 추가
-    written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, rank = rank, comments = comments)
+    written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, rank = rank, comments = comments, writingtime = datetime.now())
     db.session.add(written_comments)
     db.session.commit()
 
@@ -208,7 +213,7 @@ def intro(book_id):
     return redirect(f'/book_intro/{book_id}')
 
 
-@bp.route('/deleting/<int:book_id>/<int:comment_id>') # 리뷰 삭제 (작성과 마찬가지)
+@bp.route('/deleting/<int:book_id>/<int:comment_id>') # 댓글 삭제 (작성과 마찬가지)
 def deleting(book_id, comment_id):
     if session:
         user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()

@@ -38,6 +38,7 @@ class bookReviews(db.Model): # 책 리뷰 저장
     username = db.Column(db.String(20), db.ForeignKey('myMember.username'))
     rank     = db.Column(db.Integer)
     comments = db.Column(db.String(511))
+    writingtime = db.Column(db.DateTime)
 
 class rentHistory(db.Model): # 책 빌린 기록 저장
     __tablename__ = 'rentHistory'

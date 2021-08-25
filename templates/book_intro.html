@@ -32,13 +32,14 @@
     </div>
   </div>
   <div class = "comContainer">
-    <p id = "introTitle">댓글</p>
+    <p id = "introTitle">댓글 ({{counter}})</p>
     {% for comment in user_comments %}
     <div class = "oneCommentBox">
     <ul class = "oneComment">
         <li id = "comContents">작성자: {{comment.username}}</li>
         <li id = "comContents">{{comment.comments}}</li>
         <li id = "comContents">평점: {{comment.rank}}</li>
+        <li id = "comContents">{{comment.writingtime.replace(microsecond = 0)}}에 작성됨</li>
         <li id = "comContents"><button type = "submit" 
         id = "deletingComments_{{comment.id}}" 
         name = "deletingComments_{{comment.id}}" 
