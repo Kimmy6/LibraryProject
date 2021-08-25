@@ -24,6 +24,7 @@ def rent_button(book_id):
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
     now_info = nowRenting.query.filter(nowRenting.userID == session['userID'] and nowRenting.book_id == book_id).all()
     now_id_list = list(now_info[i].book_id for i in range(len(now_info))) # 세션에 로그인한 유저가 빌린 책의 id를 모아놓는 리스트
+    
     # 이미 빌린 경우 해당 책은 빌릴 수 없게 하기
     if now_info:
         cur_page = (book_id // 9) + 1
@@ -127,6 +128,26 @@ def history():
     rent_history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
     return render_template('history.html', user_info = user_info, rent_history = rent_history, homecoming = True) # 진자로 유저 정보 보내서 유저 정보에 맞는 페이지 출력해야 함
 
+@bp.route('/history/delete') # 기록 삭제 버튼
+def history_delete():
+    rent_history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
+    history_len = len(rent_history)
+
+    if history_len == 0:
+        flash("삭제할 기록이 없습니다.")
+
+    else:
+        for i in range(history_len):
+            db.session.delete(rent_history[i])
+        db.session.commit()
+        
+        if not rent_history[history_len].Rdate:
+            flash("이미 대여중인 책이 있으므로 삭제할 수 없습니다.")
+        else: 
+            flash("모든 기록이 삭제되었습니다.")
+
+    return redirect('/history')
+
 @bp.route('/bannap', methods = ["GET"]) # 책 반납 페이지
 def bannap():
     if not session:
@@ -136,7 +157,7 @@ def bannap():
     user_info = myMember.query.filter(myMember.userID == session['userID']).first()
     user_book = nowRenting.query.filter(nowRenting.userID == session['userID']).all()
     history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
-
+    
     return render_template('bannap.html', user_book = user_book , user_info = user_info, history = history, homecoming = True)
 
 @bp.route('/bannap/<int:book_id>') # 버튼의 목표 url을 bannap/book_id로 지정 (반납하기)
