@@ -45,8 +45,8 @@ class rentHistory(db.Model): # 책 빌린 기록 저장
 
     id          = db.Column(db.Integer, primary_key = True)
     userID      = db.Column(EmailType, db.ForeignKey('myMember.userID'))
-    book_id     = db.Column(db.Integer, db.ForeignKey('myBooks.id')) # myBooks 테이블의 id 필드를 외래키로 사용
-    book_name   = db.Column(db.String(255), db.ForeignKey('myBooks.book_name')) # myBooks 테이블의 id 필드를 외래키로 사용
+    book_id     = db.Column(db.Integer, db.ForeignKey('myBooks.id'))
+    book_name   = db.Column(db.String(255), db.ForeignKey('myBooks.book_name'))
     Ldate       = db.Column(db.Date)
     Rdate       = db.Column(db.Date)
     avg_rank    = db.Column(db.Integer, db.ForeignKey('myBooks.avg_rank'))

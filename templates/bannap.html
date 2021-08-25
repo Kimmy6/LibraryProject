@@ -15,7 +15,7 @@
           >
         </li>
         <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{book.book_name}}</div></div></li>
-        <li><span class = "bannapAvgscore">{{book.avg_rank}}</li>
+        <li><span class = "bannapAvgscore">{{book.avg_rank | round(0)}}</li>
         <li>대여일: {{book.Ldate}}</li>
         <button type = "submit" id = "bannapButton" name = "bannap/{{book.book_id}}" onclick = "location.href = 'bannap/{{book.book_id}}'">반납하기</button>
       </ul>
@@ -23,7 +23,7 @@
       {% endfor %}
     </div>
     {% else %}
-    <p>{{user_info.username}}님은 대여하신 책이 없습니다.</p>
+    <p class = "mainTitle">{{user_info.username}}님은 대여하신 책이 없습니다.</p>
     {% endif %}
     <script type = "text/javascript" src = "{{ url_for('static', filename = 'js/star_bannap.js') }}"></script>
 {% endblock %}

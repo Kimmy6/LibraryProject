@@ -1,8 +1,10 @@
 {% extends "basic.html" %}
 {% block title %} 엘리스 도서관 대여 기록 페이지 {% endblock %}
 {% block page_content %}
-    <p class = "mainTitle">{{ user_info.username }}님의 대여기록입니다.</p>
     {% if rent_history %}
+    <p class = "mainTitle">{{ user_info.username }}님의 대여기록입니다.</p>
+    <input type = "button" value= "대여기록 삭제" 
+    onclick = "location.href = '/history/delete'">
     <div class = "bookContainer">
       {% for history in rent_history %}
       <div class = "bookBox">
@@ -14,7 +16,7 @@
           alt = "{{history.book_name}}">
         </li>
         <li class = "titleBox"><div class = "booktitle"><div id = "titleText">{{ history.book_name }}</div></div></li>
-        <li class = "historyAvgscore">{{history.avg_rank}}</li>
+        <li class = "historyAvgscore">{{history.avg_rank | round(0)}}</li>
         {% if history.Rdate %}
         <li>{{ history.Ldate }} ~ {{ history.Rdate }}</li>
         {% else %}
@@ -25,7 +27,7 @@
       {% endfor %}
     </div>
     {% else %}
-    <article>{{user_info.username}}님은 대여하신 기록이 없습니다.</article>
+    <p class = "mainTitle">{{user_info.username}}님의 대여 기록이 없습니다.</p>
     {% endif %}
 <script type = "text/javascript" src = "{{ url_for('static', filename = 'js/star_history.js') }}"></script>
 {% endblock %}
