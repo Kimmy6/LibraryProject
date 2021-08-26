@@ -16,7 +16,7 @@ def home():
 @bp.route('/b/<int:book_id>') # 버튼의 목표 url을 book_id로 지정 (대여하기)
 def rent_button(book_id):
     if not session:
-        cur_page = (book_id // 9) + 1
+        cur_page = ((book_id - 1) // 8) + 1
         flash("로그인 후 대여해 주세요.")
         return redirect(f'/?page={cur_page}')
         cur_page = 1
@@ -27,14 +27,14 @@ def rent_button(book_id):
     
     # 이미 빌린 경우 해당 책은 빌릴 수 없게 하기
     if now_info:
-        cur_page = (book_id // 9) + 1
+        cur_page = ((book_id - 1) // 8) + 1
         if book_id in now_id_list:
             flash("이미 대여한 책입니다.")
             return redirect(f'/?page={cur_page}')
             cur_page = 1
 
     # 책 빌리기
-    cur_page = (book_id // 9) + 1
+    cur_page = ((book_id - 1) // 8) + 1
     if book_info.left >= 1:
         # 재고 수 - 1
         past_left = book_info.left
@@ -50,7 +50,7 @@ def rent_button(book_id):
         outside = nowRenting(book_id = book_info.id, book_name = book_info.book_name, userID = session['userID'], Ldate = datetime.today(), avg_rank = book_info.avg_rank)
         db.session.add(outside)
         db.session.commit()
-        cur_page = (book_id // 9) + 1
+        cur_page = ((book_id - 1) // 8) + 1
         return redirect(f'/?page={cur_page}')
         cur_page = 1
     else:
