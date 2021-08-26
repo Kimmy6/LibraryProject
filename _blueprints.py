@@ -78,7 +78,6 @@ def login():
     session.clear() # 혹시 모르니 세션을 미리 비워 둠
     session['userID'] = user_ID
     session['username'] = user_info.username
-    flash(f"{user_info.username}님 반갑습니다.")
     return redirect("/")
 
 @bp.route('/logout') # 로그아웃
@@ -132,7 +131,7 @@ def history():
 def history_delete():
     rent_history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
     history_len = len(rent_history)
-    _Rdate = list(rent_history[i].Rdate for i in range(history_len))
+    _Rdate = list(rent_history[i].Rdate for i in range(history_len)) # Rdate가 None인 데이터를 찾기 위해 히스토리 내 모든 Rdate만 가져옴
 
     if None in _Rdate:
         flash("현재 대여 중인 책이 있으므로 삭제할 수 없습니다.")

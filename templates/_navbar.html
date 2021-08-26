@@ -2,7 +2,7 @@
     <p class = "navTitle"><a class = "navTitlelink" href = "{{ url_for('main.home') }}">엘리스 도서관입니다.</a></p>
     {% if session['userID'] %}
     <div class = "currentBox">
-        <p class = "currentSession">{{session['username']}}님 환영합니다.</p>
+        <p class = "currentSession">{{session['username']}}님이 현재 로그인 중입니다.</p>
     </div>
     {% endif %}
     <ul class = "navContainer">
