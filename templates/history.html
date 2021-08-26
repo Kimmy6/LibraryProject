@@ -3,8 +3,8 @@
 {% block page_content %}
     {% if rent_history %}
     <p class = "mainTitle">{{ user_info.username }}님의 대여기록입니다.</p>
-    <input type = "button" value= "대여기록 삭제" 
-    onclick = "location.href = '/history/delete'">
+    <button  
+    onclick = "location.href = '/history/delete'">대여기록 삭제</button>
     <div class = "bookContainer">
       {% for history in rent_history %}
       <div class = "bookBox">
@@ -20,7 +20,7 @@
         {% if history.Rdate %}
         <li>{{ history.Ldate }} ~ {{ history.Rdate }}</li>
         {% else %}
-        <li>대여일: {{ history.Ldate }}</li>
+        <li>대여일: {{ history.Ldate }} (현재 대여 중)</li>
         {% endif %}
       </ul>
       </div>
