@@ -211,7 +211,9 @@ def intro(book_id):
 
     book_info = myBooks.query.filter(myBooks.id == book_id).first()
     user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
-    
+    rent_histories = rentHistory.query.filter(rentHistory.book_id == book_id).all()
+    now_rentings = nowRenting.query.filter(nowRenting.book_id == book_id).all()
+
     # 댓글과 점수 추가
     written_comments = bookReviews(userID = session['userID'], username = session['username'], book_id = book_id, rank = rank, comments = comments, writingtime = datetime.now())
     db.session.add(written_comments)
@@ -225,6 +227,13 @@ def intro(book_id):
 
         new_avg_rank = (rank + hap) / (len(user_comments) + 1)
         book_info.avg_rank = new_avg_rank
+        
+        for i in range(0, len(rent_histories)):
+            rent_histories[i].avg_rank = new_avg_rank
+        
+        for i in range(0, len(now_rentings)):
+            now_rentings[i].avg_rank = new_avg_rank
+        
         db.session.commit()
 
     else:
@@ -240,6 +249,9 @@ def deleting(book_id, comment_id):
         user_comments = bookReviews.query.filter(bookReviews.id == comment_id).first()
         book_info = myBooks.query.filter(myBooks.id == book_id).first()
         _user_comments = bookReviews.query.filter(bookReviews.book_id == book_id).all()
+        rent_histories = rentHistory.query.filter(rentHistory.book_id == book_id).all()
+        now_rentings = nowRenting.query.filter(nowRenting.book_id == book_id).all()
+
         if user_comments.userID != session['userID']:
             flash("내 댓글만 삭제할 수 있습니다.")
         else:
@@ -257,6 +269,15 @@ def deleting(book_id, comment_id):
                 new_avg_rank = (hap - rank) / (len(_user_comments) - 1)
                 book_info.avg_rank = new_avg_rank
                 db.session.commit()
+    
+                for i in range(0, len(rent_histories)):
+                    rent_histories[i].avg_rank = new_avg_rank
+                
+                for i in range(0, len(now_rentings)):
+                    now_rentings[i].avg_rank = new_avg_rank
+
+                db.session.commit()
+
             else:
                 book_info.avg_rank = 0
                 db.session.commit()
