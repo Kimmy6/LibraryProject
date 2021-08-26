@@ -104,7 +104,7 @@
 
 ### 사용할 데이터베이스 구조
 
-![MyERD](uploads/6ba51e48025d62ad5f861339ffac6777/MyERD.jpg)
+![MyERD](/uploads/856a8c34aa2b72cb7ad9b4c5457637e3/MyERD.jpg)
 
 #### 테이블 설명
 > · myMember : 회원 정보를 보관하는 테이블   
