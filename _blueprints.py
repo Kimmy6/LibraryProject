@@ -132,19 +132,18 @@ def history():
 def history_delete():
     rent_history = rentHistory.query.filter(rentHistory.userID == session['userID']).all()
     history_len = len(rent_history)
+    _Rdate = list(rent_history[i].Rdate for i in range(history_len))
 
+    if None in _Rdate:
+        flash("현재 대여 중인 책이 있으므로 삭제할 수 없습니다.")
+        return redirect('/history')
+        
     if history_len == 0:
         flash("삭제할 기록이 없습니다.")
-
     else:
         for i in range(history_len):
             db.session.delete(rent_history[i])
         db.session.commit()
-        
-        if not rent_history[history_len].Rdate:
-            flash("이미 대여중인 책이 있으므로 삭제할 수 없습니다.")
-        else: 
-            flash("모든 기록이 삭제되었습니다.")
 
     return redirect('/history')
 
@@ -175,7 +174,8 @@ def bannap_button(book_id):
     # 반납한 날짜 남기기
     if not rent_Histories:
         rentHistory(Rdate = datetime.today())
-
+    elif len(rent_Histories) == 1:
+        rent_Histories[0].Rdate = datetime.today()
     else:
         rent_Histories[-1].Rdate = datetime.today()
 
