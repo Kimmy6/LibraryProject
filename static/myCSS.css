@@ -141,8 +141,6 @@ li .coverImage{
     background-color:slategrey;
     color: white;
     font-size: 22px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
     font-family: 'Noto Sans KR';
     cursor: context-menu;
 }

@@ -236,6 +236,12 @@ def intro(book_id):
         db.session.commit()
 
     else:
+        for i in range(0, len(rent_histories)):
+            rent_histories[i].avg_rank = rank
+        
+        for i in range(0, len(now_rentings)):
+            now_rentings[i].avg_rank = rank
+            
         book_info.avg_rank = rank
         db.session.commit()
         
@@ -278,6 +284,12 @@ def deleting(book_id, comment_id):
                 db.session.commit()
 
             else:
+                for i in range(0, len(rent_histories)):
+                    rent_histories[i].avg_rank = 0
+                
+                for i in range(0, len(now_rentings)):
+                    now_rentings[i].avg_rank = 0
+
                 book_info.avg_rank = 0
                 db.session.commit()
     else:
